@@ -1,0 +1,32 @@
+
+{
+  "format_version": "1.21.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "armor:test_sword",
+      "menu_category":{
+        "group":"itemGroup.name.sword",
+        "category":"equipment"
+      }
+    },
+
+    "components": {
+      "minecraft:max_stack_size":1,
+      "minecraft:hand_equipped":true,
+      "minecraft:enchantable":{"value":10,"slot":"sword"},
+      "minecraft:icon":"test_sword",
+      "minecraft:allow_off_hand":false,
+      "minecraft:durability":{
+      "damage_chance": {
+        "min": 10,
+        "max": 50
+      },
+      "max_durability": 350
+      },
+      "minecraft:display_name":{
+        "value": "test_sword"
+      },
+       "minecraft:damage": 1000
+    }
+  }
+}
