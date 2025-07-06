@@ -1,9 +1,3 @@
----
-title: "utility-addons"
-date: "2025-07-06"
-tags: ["Minecraft", "Markdown"]
-author: "Haruto ooki"
----
 # utility-addons
 This is a utility-addons project!
 <br>
@@ -22,4 +16,4 @@ Commits page: [Commits](https://github.com/haruto-ooki/utility-addons/commits/ma
 コミット履歴は[こちら](https://github.com/haruto-ooki/utility-addons/commits/main)
 <br>
 <br>
-Copyright 2025 haruto ooki
+&copy;Copyright 2025 haruto ooki
