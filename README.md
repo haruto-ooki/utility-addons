@@ -1,3 +1,9 @@
+---
+title: "utility-addons"
+date: "2025-07-06"
+tags: ["Minecraft", "Markdown"]
+author: "Haruto ooki"
+---
 # utility-addons
 This is a utility-addons project!
 <br>
