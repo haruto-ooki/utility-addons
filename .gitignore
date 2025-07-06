@@ -140,3 +140,5 @@ vite.config.ts.timestamp-*
 
 # All ignore PowerShell script for reload addons
 *.ps1
+*.ps2
+*.ps3
