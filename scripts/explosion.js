@@ -14,9 +14,9 @@ world.afterEvents.projectileHitBlock.subscribe((event) => {
         if (!sourceEntity) return;
 
         for (let i = 0; i < 5; i++) { // TNTの個数を5に増やしました
-            const offsetX = Math.random() * 8 - 4;   // -4 ～ +4
+            const offsetX = Math.random() * 8 - Math.random() * 10;   // -4 ～ +4
             const offsetY = Math.random() * 4;       // 0 ～ 4（空中も含む）
-            const offsetZ = Math.random() * 8 - 4;
+            const offsetZ = Math.random() * 8 - Math.random() * 10;   // -4 ～ +4
 
             const spawnX = Math.floor(location.x + offsetX);
             const spawnY = Math.floor(location.y + offsetY);
