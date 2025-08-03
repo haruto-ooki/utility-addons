@@ -7,6 +7,7 @@ console.log("爆発コマンドを登録しました！");
 // 第二波TNTのためのキュー
 let tntQueue = [];
 let delayTicks = 0;
+let delaySeconds = 0;
 
 world.afterEvents.projectileHitBlock.subscribe((event) => {
     const projectile = event.projectile;
@@ -44,8 +45,8 @@ world.afterEvents.projectileHitBlock.subscribe((event) => {
 
             tntQueue.push({ x: x, y: y, z: z, entity: sourceEntity });
         }
-
-        delayTicks = 20; // 1秒 ≒ 20ティック
+        delaySeconds = 0.2
+        delayTicks = delaySeconds * 20; // 1秒 ≒ 20ティック
     }
 });
 
