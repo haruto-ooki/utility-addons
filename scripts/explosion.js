@@ -9,18 +9,18 @@ world.afterEvents.projectileHitBlock.subscribe((event) => {
 
     if (projectile.typeId === "minecraft:snowball") {
         const location = event.location;
-        const sourceEntity = event.source; // 修正されたプロパティ
+        const sourceEntity = event.source;
 
-        if (!sourceEntity) return; // 念のためnullチェック
+        if (!sourceEntity) return;
 
-        for (let i = 0; i < 4; i++) {
-            const offsetX = Math.random() * 2 - 1;
-            const offsetY = Math.random();
-            const offsetZ = Math.random() * 2 - 1;
+        for (let i = 0; i < 5; i++) { // TNTの個数を5に増やしました
+            const offsetX = Math.random() * 8 - 4;   // -4 ～ +4
+            const offsetY = Math.random() * 4;       // 0 ～ 4（空中も含む）
+            const offsetZ = Math.random() * 8 - 4;
 
-            const spawnX = location.x + offsetX;
-            const spawnY = location.y + offsetY;
-            const spawnZ = location.z + offsetZ;
+            const spawnX = Math.floor(location.x + offsetX);
+            const spawnY = Math.floor(location.y + offsetY);
+            const spawnZ = Math.floor(location.z + offsetZ);
 
             sourceEntity.runCommand(
                 `summon tnt ${spawnX} ${spawnY} ${spawnZ}`
