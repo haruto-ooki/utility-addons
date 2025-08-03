@@ -4,6 +4,10 @@ const world = server.world;
 
 console.log("爆発コマンドを登録しました！");
 
+let tntQueue: { x: number, y: number, z: number, entity: server.Entity }[] = [];
+let delayTicks = 0;
+let delaySeconds = 0.0;
+
 world.afterEvents.projectileHitBlock.subscribe((event) => {
     const projectile = event.projectile;
 
@@ -12,20 +16,50 @@ world.afterEvents.projectileHitBlock.subscribe((event) => {
         const sourceEntity = event.source;
 
         if (!sourceEntity) return;
-        for (let i = 0; i < 5; i++) { // TNTの個数を5に増やしました
-            for (let i = 0; i < 5; i++) { // TNTの個数を5に増やしました
-                const offsetX = Math.random() * 8 - Math.random() * 10;   // -4 ～ +4
-                const offsetY = Math.random() * 4;       // 0 ～ 4（空中も含む）
-                const offsetZ = Math.random() * 8 - Math.random() * 10;   // -4 ～ +4
 
-                const spawnX = Math.floor(location.x + offsetX);
-                const spawnY = Math.floor(location.y + offsetY);
-                const spawnZ = Math.floor(location.z + offsetZ);
+        const spread = 6;
 
-                sourceEntity.runCommand(
-                    `summon tnt ${spawnX} ${spawnY} ${spawnZ}`
-                );
-            }
+        // 💥 第一波：即時召喚
+        for (let i = 0; i < 5; i++) {
+            const offsetX = Math.random() * spread * 2 - spread;
+            const offsetY = Math.random() * 2;
+            const offsetZ = Math.random() * spread * 2 - spread;
+
+            const x = Math.floor(location.x + offsetX);
+            const y = Math.floor(location.y + offsetY);
+            const z = Math.floor(location.z + offsetZ);
+
+            sourceEntity.runCommand(`summon tnt ${x} ${y} ${z}`);
         }
+
+        // 💣 第二波：1秒後に召喚するTNTをキューに追加
+        for (let i = 0; i < 10; i++) {
+            const offsetX = Math.random() * spread * 2 - spread;
+            const offsetY = Math.random() * 2;
+            const offsetZ = Math.random() * spread * 2 - spread;
+
+            const x = Math.floor(location.x + offsetX);
+            const y = Math.floor(location.y + offsetY);
+            const z = Math.floor(location.z + offsetZ);
+
+            tntQueue.push({ x, y, z, entity: sourceEntity });
+        }
+        delaySeconds = 1; // 1秒後に実行するための設定
+        delayTicks = delaySeconds * 20; // 1秒 ≈ 20 ticks
+    }
+});
+
+// ⏱ 毎tickチェックして、遅延実行
+world.events.tick.subscribe(() => {
+    if (delayTicks > 0) {
+        delayTicks--;
+        return;
+    }
+
+    if (tntQueue.length > 0) {
+        for (const tnt of tntQueue) {
+            tnt.entity.runCommand(`summon tnt ${tnt.x} ${tnt.y} ${tnt.z}`);
+        }
+        tntQueue = [];
     }
 });
