@@ -4,13 +4,27 @@ const world = server.world;
 
 console.log("爆発コマンドを登録しました！");
 
-world.afterEvents.projectileHitBlock.subscribe((event , origin)=>{
-	const projectile = event.projectile; // 投げものの情報を取得
+world.afterEvents.projectileHitBlock.subscribe((event) => {
+    const projectile = event.projectile;
 
-	if(projectile.typeId === "minecraft:snowball"){ // 投げものが雪玉だったら
-		const dimension = event.dimension;
-		const location = event.location;
+    if (projectile.typeId === "minecraft:snowball") {
+        const location = event.location;
+        const sourceEntity = event.source; // 修正されたプロパティ
 
-		origin.sourceEntity.runCommand(`fill ${location.x - 2} ${location.y - 2} ${location.z - 2} ${location.x + 2} ${location.y + 2} ${location.z + 2} tnt[explosionPower=4] destroy`);
-	}
+        if (!sourceEntity) return; // 念のためnullチェック
+
+        for (let i = 0; i < 4; i++) {
+            const offsetX = Math.random() * 2 - 1;
+            const offsetY = Math.random();
+            const offsetZ = Math.random() * 2 - 1;
+
+            const spawnX = location.x + offsetX;
+            const spawnY = location.y + offsetY;
+            const spawnZ = location.z + offsetZ;
+
+            sourceEntity.runCommand(
+                `summon tnt ${spawnX} ${spawnY} ${spawnZ}`
+            );
+        }
+    }
 });
