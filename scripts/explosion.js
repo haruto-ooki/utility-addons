@@ -12,19 +12,20 @@ world.afterEvents.projectileHitBlock.subscribe((event) => {
         const sourceEntity = event.source;
 
         if (!sourceEntity) return;
-
         for (let i = 0; i < 5; i++) { // TNTの個数を5に増やしました
-            const offsetX = Math.random() * 8 - Math.random() * 10;   // -4 ～ +4
-            const offsetY = Math.random() * 4;       // 0 ～ 4（空中も含む）
-            const offsetZ = Math.random() * 8 - Math.random() * 10;   // -4 ～ +4
+            for (let i = 0; i < 5; i++) { // TNTの個数を5に増やしました
+                const offsetX = Math.random() * 8 - Math.random() * 10;   // -4 ～ +4
+                const offsetY = Math.random() * 4;       // 0 ～ 4（空中も含む）
+                const offsetZ = Math.random() * 8 - Math.random() * 10;   // -4 ～ +4
 
-            const spawnX = Math.floor(location.x + offsetX);
-            const spawnY = Math.floor(location.y + offsetY);
-            const spawnZ = Math.floor(location.z + offsetZ);
+                const spawnX = Math.floor(location.x + offsetX);
+                const spawnY = Math.floor(location.y + offsetY);
+                const spawnZ = Math.floor(location.z + offsetZ);
 
-            sourceEntity.runCommand(
-                `summon tnt ${spawnX} ${spawnY} ${spawnZ}`
-            );
+                sourceEntity.runCommand(
+                    `summon tnt ${spawnX} ${spawnY} ${spawnZ}`
+                );
+            }
         }
     }
 });
