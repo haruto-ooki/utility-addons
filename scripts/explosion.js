@@ -47,7 +47,7 @@ world.afterEvents.projectileHitBlock.subscribe((event) => {
             tntQueue.push({ x, y, z, entity: sourceEntity });
         }
 
-        delaySeconds = 0.2;
+        delaySeconds = 0.5;
         delayTicks = delaySeconds * 20; // ≒ 20ティック = 1秒
     }
 });
